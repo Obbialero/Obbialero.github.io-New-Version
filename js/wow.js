@@ -1,2 +1,351 @@
-/*! WOW - v1.0.1 - 2014-08-15
-* Copyright (c) 2014 Matthieu Aussaguel; Licensed MIT */(function(){var a,b,c,d=function(a,b){return function(){return a.apply(b,arguments)}},e=[].indexOf||function(a){for(var b=0,c=this.length;c>b;b++)if(b in this&&this[b]===a)return b;return-1};b=function(){function a(){}return a.prototype.extend=function(a,b){var c,d;for(c in b)d=b[c],null==a[c]&&(a[c]=d);return a},a.prototype.isMobile=function(a){return/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(a)},a}(),c=this.WeakMap||this.MozWeakMap||(c=function(){function a(){this.keys=[],this.values=[]}return a.prototype.get=function(a){var b,c,d,e,f;for(f=this.keys,b=d=0,e=f.length;e>d;b=++d)if(c=f[b],c===a)return this.values[b]},a.prototype.set=function(a,b){var c,d,e,f,g;for(g=this.keys,c=e=0,f=g.length;f>e;c=++e)if(d=g[c],d===a)return void(this.values[c]=b);return this.keys.push(a),this.values.push(b)},a}()),a=this.MutationObserver||this.WebkitMutationObserver||this.MozMutationObserver||(a=function(){function a(){console.warn("MutationObserver is not supported by your browser."),console.warn("WOW.js cannot detect dom mutations, please call .sync() after loading new content.")}return a.notSupported=!0,a.prototype.observe=function(){},a}()),this.WOW=function(){function f(a){null==a&&(a={}),this.scrollCallback=d(this.scrollCallback,this),this.scrollHandler=d(this.scrollHandler,this),this.start=d(this.start,this),this.scrolled=!0,this.config=this.util().extend(a,this.defaults),this.animationNameCache=new c}return f.prototype.defaults={boxClass:"wow",animateClass:"animated",offset:0,mobile:!0,live:!0},f.prototype.init=function(){var a;return this.element=window.document.documentElement,"interactive"===(a=document.readyState)||"complete"===a?this.start():document.addEventListener("DOMContentLoaded",this.start),this.finished=[]},f.prototype.start=function(){var b,c,d,e;if(this.stopped=!1,this.boxes=function(){var a,c,d,e;for(d=this.element.querySelectorAll("."+this.config.boxClass),e=[],a=0,c=d.length;c>a;a++)b=d[a],e.push(b);return e}.call(this),this.all=function(){var a,c,d,e;for(d=this.boxes,e=[],a=0,c=d.length;c>a;a++)b=d[a],e.push(b);return e}.call(this),this.boxes.length)if(this.disabled())this.resetStyle();else{for(e=this.boxes,c=0,d=e.length;d>c;c++)b=e[c],this.applyStyle(b,!0);window.addEventListener("scroll",this.scrollHandler,!1),window.addEventListener("resize",this.scrollHandler,!1),this.interval=setInterval(this.scrollCallback,50)}return this.config.live?new a(function(a){return function(b){var c,d,e,f,g;for(g=[],e=0,f=b.length;f>e;e++)d=b[e],g.push(function(){var a,b,e,f;for(e=d.addedNodes||[],f=[],a=0,b=e.length;b>a;a++)c=e[a],f.push(this.doSync(c));return f}.call(a));return g}}(this)).observe(document.body,{childList:!0,subtree:!0}):void 0},f.prototype.stop=function(){return this.stopped=!0,window.removeEventListener("scroll",this.scrollHandler,!1),window.removeEventListener("resize",this.scrollHandler,!1),null!=this.interval?clearInterval(this.interval):void 0},f.prototype.sync=function(){return a.notSupported?this.doSync(this.element):void 0},f.prototype.doSync=function(a){var b,c,d,f,g;if(!this.stopped){if(null==a&&(a=this.element),1!==a.nodeType)return;for(a=a.parentNode||a,f=a.querySelectorAll("."+this.config.boxClass),g=[],c=0,d=f.length;d>c;c++)b=f[c],e.call(this.all,b)<0?(this.applyStyle(b,!0),this.boxes.push(b),this.all.push(b),g.push(this.scrolled=!0)):g.push(void 0);return g}},f.prototype.show=function(a){return this.applyStyle(a),a.className=""+a.className+" "+this.config.animateClass},f.prototype.applyStyle=function(a,b){var c,d,e;return d=a.getAttribute("data-wow-duration"),c=a.getAttribute("data-wow-delay"),e=a.getAttribute("data-wow-iteration"),this.animate(function(f){return function(){return f.customStyle(a,b,d,c,e)}}(this))},f.prototype.animate=function(){return"requestAnimationFrame"in window?function(a){return window.requestAnimationFrame(a)}:function(a){return a()}}(),f.prototype.resetStyle=function(){var a,b,c,d,e;for(d=this.boxes,e=[],b=0,c=d.length;c>b;b++)a=d[b],e.push(a.setAttribute("style","visibility: visible;"));return e},f.prototype.customStyle=function(a,b,c,d,e){return b&&this.cacheAnimationName(a),a.style.visibility=b?"hidden":"visible",c&&this.vendorSet(a.style,{animationDuration:c}),d&&this.vendorSet(a.style,{animationDelay:d}),e&&this.vendorSet(a.style,{animationIterationCount:e}),this.vendorSet(a.style,{animationName:b?"none":this.cachedAnimationName(a)}),a},f.prototype.vendors=["moz","webkit"],f.prototype.vendorSet=function(a,b){var c,d,e,f;f=[];for(c in b)d=b[c],a[""+c]=d,f.push(function(){var b,f,g,h;for(g=this.vendors,h=[],b=0,f=g.length;f>b;b++)e=g[b],h.push(a[""+e+c.charAt(0).toUpperCase()+c.substr(1)]=d);return h}.call(this));return f},f.prototype.vendorCSS=function(a,b){var c,d,e,f,g,h;for(d=window.getComputedStyle(a),c=d.getPropertyCSSValue(b),h=this.vendors,f=0,g=h.length;g>f;f++)e=h[f],c=c||d.getPropertyCSSValue("-"+e+"-"+b);return c},f.prototype.animationName=function(a){var b;try{b=this.vendorCSS(a,"animation-name").cssText}catch(c){b=window.getComputedStyle(a).getPropertyValue("animation-name")}return"none"===b?"":b},f.prototype.cacheAnimationName=function(a){return this.animationNameCache.set(a,this.animationName(a))},f.prototype.cachedAnimationName=function(a){return this.animationNameCache.get(a)},f.prototype.scrollHandler=function(){return this.scrolled=!0},f.prototype.scrollCallback=function(){var a;return!this.scrolled||(this.scrolled=!1,this.boxes=function(){var b,c,d,e;for(d=this.boxes,e=[],b=0,c=d.length;c>b;b++)a=d[b],a&&(this.isVisible(a)?this.show(a):e.push(a));return e}.call(this),this.boxes.length||this.config.live)?void 0:this.stop()},f.prototype.offsetTop=function(a){for(var b;void 0===a.offsetTop;)a=a.parentNode;for(b=a.offsetTop;a=a.offsetParent;)b+=a.offsetTop;return b},f.prototype.isVisible=function(a){var b,c,d,e,f;return c=a.getAttribute("data-wow-offset")||this.config.offset,f=window.pageYOffset,e=f+Math.min(this.element.clientHeight,innerHeight)-c,d=this.offsetTop(a),b=d+a.clientHeight,e>=d&&b>=f},f.prototype.util=function(){return null!=this._util?this._util:this._util=new b},f.prototype.disabled=function(){return!this.config.mobile&&this.util().isMobile(navigator.userAgent)},f}()}).call(this);
+
+
+(function () {
+
+  var MutationObserver, Util, WeakMap, getComputedStyle, getComputedStyleRX,
+      slice = [].slice,
+      indexOf = [].indexOf || function (item) {
+        for (var i = 0, l = this.length; i < l; i++) {
+          if (this[i] === item) return i;
+        }
+        return -1;
+      };
+
+  Util = (function () {
+    function Util() {}
+
+    Util.prototype.extend = function (custom, defaults) {
+      for (var key in defaults) {
+        if (custom[key] == null) {
+          custom[key] = defaults[key];
+        }
+      }
+      return custom;
+    };
+
+    Util.prototype.isMobile = function (agent) {
+      return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(agent);
+    };
+
+    return Util;
+  })();
+
+  WeakMap = this.WeakMap || this.MozWeakMap || (function () {
+    function WeakMap() {
+      this.keys = [];
+      this.values = [];
+    }
+
+    WeakMap.prototype.get = function (key) {
+      for (var i = 0; i < this.keys.length; i++) {
+        if (this.keys[i] === key) return this.values[i];
+      }
+    };
+
+    WeakMap.prototype.set = function (key, value) {
+      for (var i = 0; i < this.keys.length; i++) {
+        if (this.keys[i] === key) {
+          this.values[i] = value;
+          return;
+        }
+      }
+      this.keys.push(key);
+      this.values.push(value);
+    };
+
+    return WeakMap;
+  })();
+
+  MutationObserver = this.MutationObserver || this.WebkitMutationObserver || this.MozMutationObserver || (function () {
+    function MutationObserver() {
+      if (console && console.warn) {
+        console.warn("MutationObserver is not supported by your browser.");
+        console.warn("WOW.js cannot detect dom mutations, please call .sync() after loading new content.");
+      }
+    }
+
+    MutationObserver.notSupported = true;
+
+    MutationObserver.prototype.observe = function () {};
+
+    return MutationObserver;
+  })();
+
+  getComputedStyle = function (el, prop) {
+    if (el.currentStyle) {
+      return el.currentStyle[prop];
+    } else if (window.getComputedStyle) {
+      return getComputedStyle(el, null).getPropertyValue(prop);
+    } else {
+      return el.style[prop];
+    }
+  };
+
+  getComputedStyleRX = /^(?:webkit|moz|ms|o)(?=[A-Z])/;
+
+  this.WOW = (function () {
+    function WOW(options) {
+      if (options == null) options = {};
+      this.scrollCallback = this.scrollCallback.bind(this);
+      this.scrollHandler = this.scrollHandler.bind(this);
+      this.resetAnimation = this.resetAnimation.bind(this);
+      this.start = this.start.bind(this);
+
+      this.config = new Util().extend(options, this.defaults);
+      this.animationNameCache = new WeakMap();
+      this.wowEvent = this.config.boxClass + '-visible';
+      this.util = new Util();
+    }
+
+    WOW.prototype.defaults = {
+      boxClass: 'wow',
+      animateClass: 'animated',
+      offset: 0,
+      mobile: true,
+      live: true,
+      callback: null,
+      scrollContainer: null,
+      resetAnimation: true
+    };
+
+    WOW.prototype.init = function () {
+      this.element = window.document.documentElement;
+      if (['interactive', 'complete'].indexOf(document.readyState) > -1) {
+        this.start();
+      } else {
+        document.addEventListener('DOMContentLoaded', this.start);
+      }
+      this.finished = [];
+    };
+
+    WOW.prototype.start = function () {
+      var box, j, len, ref;
+      this.stopped = false;
+      this.boxes = function () {
+        var ref, results;
+        ref = this.element.querySelectorAll("." + this.config.boxClass);
+        results = [];
+        for (var i = 0; i < ref.length; i++) {
+          results.push(ref[i]);
+        }
+        return results;
+      }.call(this);
+
+      this.all = function () {
+        var results = [];
+        for (var i = 0; i < this.boxes.length; i++) {
+          results.push(this.boxes[i]);
+        }
+        return results;
+      }.call(this);
+
+      if (this.boxes.length) {
+        if (this.disabled()) return;
+        for (j = 0, len = this.boxes.length; j < len; j++) {
+          box = this.boxes[j];
+          this.applyStyle(box, true);
+        }
+      }
+
+      if (!this.disabled()) {
+        this.scrollContainer = this.config.scrollContainer || window;
+        this.scrollContainer.addEventListener('scroll', this.scrollHandler);
+        this.scrollContainer.addEventListener('resize', this.scrollHandler);
+        this.interval = setInterval(this.scrollCallback, 50);
+      }
+
+      if (this.config.live) {
+        return new MutationObserver((function (_this) {
+          return function (records) {
+            var addedNode, j, len, node, record, results;
+            results = [];
+            for (j = 0, len = records.length; j < len; j++) {
+              record = records[j];
+              addedNode = record.addedNodes || [];
+              for (var k = 0; k < addedNode.length; k++) {
+                node = addedNode[k];
+                results.push(_this.doSync(node));
+              }
+            }
+            return results;
+          };
+        })(this)).observe(document.body, {
+          childList: true,
+          subtree: true
+        });
+      }
+    };
+
+    WOW.prototype.stop = function () {
+      this.stopped = true;
+      if (this.scrollContainer) {
+        this.scrollContainer.removeEventListener('scroll', this.scrollHandler);
+        this.scrollContainer.removeEventListener('resize', this.scrollHandler);
+      }
+      if (this.interval != null) clearInterval(this.interval);
+    };
+
+    WOW.prototype.sync = function (element) {
+      if (MutationObserver.notSupported) return this.doSync(this.element);
+    };
+
+    WOW.prototype.doSync = function (element) {
+      var box, j, len, ref, results;
+      if (element == null) element = this.element;
+      if (element.nodeType !== 1) return;
+      element = element.parentNode || element;
+      ref = element.querySelectorAll("." + this.config.boxClass);
+      results = [];
+      for (j = 0, len = ref.length; j < len; j++) {
+        box = ref[j];
+        if (indexOf.call(this.all, box) < 0) {
+          this.boxes.push(box);
+          this.all.push(box);
+          if (this.stopped || this.disabled()) continue;
+          this.applyStyle(box, true);
+          results.push(this.scrolled = true);
+        }
+      }
+      return results;
+    };
+
+    WOW.prototype.show = function (box) {
+      this.applyStyle(box);
+      box.className = box.className + " " + this.config.animateClass;
+      if (this.config.callback != null) {
+        this.config.callback(box);
+      }
+      if (this.config.resetAnimation) {
+        box.addEventListener('animationend', this.resetAnimation);
+      }
+    };
+
+    WOW.prototype.applyStyle = function (box, hidden) {
+      var delay, duration, iteration;
+      duration = box.getAttribute('data-wow-duration');
+      delay = box.getAttribute('data-wow-delay');
+      iteration = box.getAttribute('data-wow-iteration');
+
+      return this.animate((function (_this) {
+        return function () {
+          return _this.customStyle(box, hidden, duration, delay, iteration);
+        };
+      })(this));
+    };
+
+    WOW.prototype.animate = (function () {
+      return 'requestAnimationFrame' in window ?
+        function (callback) {
+          return window.requestAnimationFrame(callback);
+        } :
+        function (callback) {
+          return callback();
+        };
+    })();
+
+    WOW.prototype.resetAnimation = function (event) {
+      var target;
+      if (event.type.toLowerCase().indexOf('animationend') >= 0) {
+        target = event.target || event.srcElement;
+        return target.className = target.className.replace(this.config.animateClass, '').trim();
+      }
+    };
+
+    WOW.prototype.customStyle = function (box, hidden, duration, delay, iteration) {
+      if (hidden) this.cacheAnimationName(box);
+      box.style.visibility = hidden ? 'hidden' : 'visible';
+      if (duration) this.vendorSet(box.style, { animationDuration: duration });
+      if (delay) this.vendorSet(box.style, { animationDelay: delay });
+      if (iteration) this.vendorSet(box.style, { animationIterationCount: iteration });
+      this.vendorSet(box.style, { animationName: hidden ? 'none' : this.cachedAnimationName(box) });
+      return box;
+    };
+
+    WOW.prototype.vendors = ['moz', 'webkit'];
+
+    WOW.prototype.vendorSet = function (elem, properties) {
+      for (var name in properties) {
+        var value = properties[name];
+        elem[name] = value;
+        for (var i = 0; i < this.vendors.length; i++) {
+          var vendor = this.vendors[i];
+          elem[vendor + name.charAt(0).toUpperCase() + name.substr(1)] = value;
+        }
+      }
+    };
+
+    WOW.prototype.vendorCSS = function (elem, name) {
+      var style = getComputedStyle(elem);
+      var result = style.getPropertyValue(name);
+      for (var i = 0; i < this.vendors.length; i++) {
+        var vendor = this.vendors[i];
+        result = result || style.getPropertyValue("-" + vendor + "-" + name);
+      }
+      return result;
+    };
+
+    WOW.prototype.animationName = function (box) {
+      try {
+        return this.vendorCSS(box, 'animation-name');
+      } catch (_error) {
+        return getComputedStyle(box).getPropertyValue('animation-name');
+      }
+    };
+
+    WOW.prototype.cacheAnimationName = function (box) {
+      return this.animationNameCache.set(box, this.animationName(box));
+    };
+
+    WOW.prototype.cachedAnimationName = function (box) {
+      return this.animationNameCache.get(box);
+    };
+
+    WOW.prototype.scrollHandler = function () {
+      return this.scrolled = true;
+    };
+
+    WOW.prototype.scrollCallback = function () {
+      if (!this.scrolled) return;
+      this.scrolled = false;
+      var box;
+      for (var i = 0; i < this.boxes.length; i++) {
+        box = this.boxes[i];
+        if (box && this.isVisible(box)) {
+          this.show(box);
+          this.boxes[i] = null;
+        }
+      }
+      this.boxes = this.boxes.filter(function (box) { return box !== null; });
+      if (!this.boxes.length && !this.config.live) this.stop();
+    };
+
+    WOW.prototype.offsetTop = function (element) {
+      var top = 0;
+      while (element) {
+        top += element.offsetTop;
+        element = element.offsetParent;
+      }
+      return top;
+    };
+
+    WOW.prototype.isVisible = function (box) {
+      var offset = box.getAttribute('data-wow-offset') || this.config.offset;
+      var viewTop = this.scrollContainer.pageYOffset || this.scrollContainer.scrollTop || 0;
+      var viewBottom = viewTop + Math.min(this.element.clientHeight, window.innerHeight) - offset;
+      var top = this.offsetTop(box);
+      var bottom = top + box.clientHeight;
+
+      return viewBottom >= top && bottom >= viewTop;
+    };
+
+    WOW.prototype.util = function () {
+      return this.util;
+    };
+
+    WOW.prototype.disabled = function () {
+      return !this.config.mobile && this.util.isMobile(navigator.userAgent);
+    };
+
+    return WOW;
+  })();
+}).call(this);
