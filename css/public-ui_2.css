@@ -1,0 +1,37 @@
+:root{
+    --main_color: rgba(55, 157, 101, 1);
+    --aid_mainColorFade_color1: rgb(26,76,49);
+    --aid_mainColorFade_color2: rgb(47,132,85);
+    --aid_mainColorFade_color3: rgb(85,195,134);
+    --aid_mainColorFade_color4: rgb(141,216,175);
+    --aid_neutral_color1: rgb(204,204,204);
+    --aid_neutral_color2: rgb(179,179,179);
+    --aid_neutral_color3: rgb(153,153,153);
+    --aid_neutral_color4: rgb(128,128,128);
+    --aid_neutral_color5: rgb(102,102,102);
+    --aid_neutral_color6: rgb(77,77,77);
+    --aid_neutral_color7: rgb(51,51,51);
+    --aid_warning_color1: rgb(255,4,4);
+    --aid_warning_color2: rgb(102,0,0);
+    --aid_warning_color3: rgb(255,0,0);
+    --aid_warning_color4: rgb(255,153,153);
+    --bg_main_color1: rgba(255, 255, 255, 1);
+    --bg_main_color2: rgba(250, 250, 250, 1);
+    --bg_main_color3: rgba(247, 247, 247, 1);
+    --bg_main_color4: rgb(55,157,101);
+    --bg_main_color5: rgba(255, 149, 0, 1);
+    --text_main_color1: rgb(0,0,0);
+    --text_main_color2: rgb(0,0,0);
+    --text_main_color3: rgb(116,116,116);
+    --text_main_color4: rgba(255, 255, 255, 1);
+    --text_main_color5: rgb(55,157,101);
+    --icon_main_color1: rgba(255, 255, 255, 1);
+    --icon_main_color2: rgba(255, 149, 0, 1);
+    --icon_main_color3: rgb(55,157,101);
+    --line_main_color1: rgba(226, 226, 226, 1);
+    --line_main_color2: rgb(55,157,101);
+    --line_main_color3: rgb(252,252,252);
+    --mask_main_color1: rgba(0,0,0,0.88);
+    --mask_main_color2: rgba(0,0,0,0.3);
+    --mask_main_color3: rgba(0,0,0,0.44);
+}
